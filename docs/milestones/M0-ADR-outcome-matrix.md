@@ -22,6 +22,17 @@ No softer state. No “looks good for now.” If an ADR carries semantic weight 
 
 ---
 
+## Practical review cadence (optional)
+
+Same **dependency order** as below; split across two sessions to reduce cognitive load:
+
+| Pass | ADRs | Focus |
+| ---- | ---- | ----- |
+| **1** | 0003 → 0004 → 0005 | Structural core: signed manifest boundary, command lifecycle, evidence streams. |
+| **2** | 0001 → 0002 → 0006 | Verify semantics, reconciliation ownership, pairing/credential ceremony. |
+
+---
+
 ## Suggested review order
 
 | Order | ADR | Title |
@@ -211,16 +222,16 @@ M0 ADR review is **complete** only when:
 Paste below into a tracking issue (e.g. gate / umbrella). Expand in [M0-ADR-outcome-matrix.md](M0-ADR-outcome-matrix.md) in-repo.
 
 ```text
-ADR outcome matrix — M0 (0001–0006)
+M0 ADR review runs from docs/milestones/M0-ADR-outcome-matrix.md as the single source of truth.
 
-Allowed outcomes only: Accept | Accept with edits | Reject
+Review order (dependency-first): 0003 → 0004 → 0005 → 0001 → 0002 → 0006.
+(Optional two-pass: 0003–0005 first, then 0001–0002–0006 — see matrix.)
 
-Review order (dependency): 0003 → 0004 → 0005 → 0001 → 0002 → 0006
+Only three outcomes: Accept | Accept with edits | Reject.
 
-Full template + per-ADR blocks:
-https://github.com/danvoulez/minilab-cursor/blob/main/docs/milestones/M0-ADR-outcome-matrix.md
+M0 is not gate-passed until all six ADRs have human disposition per the matrix.
 
-M0 not gate-passed until all six have a disposition; Accept with edits = edits tracked before more semantics; Reject = replacement path named same day.
+Full template: https://github.com/danvoulez/minilab-cursor/blob/main/docs/milestones/M0-ADR-outcome-matrix.md
 ```
 
 ---
@@ -230,3 +241,4 @@ M0 not gate-passed until all six have a disposition; Accept with edits = edits t
 | Date | Change |
 | ---- | ------ |
 | 2026-04-18 | Initial matrix template: rules, dependency order, summary table, per-ADR blocks, completion rule, GitHub appendix. |
+| 2026-04-18 | Optional two-pass cadence (0003–0005, then 0001–0002–0006); appendix text aligned to gate notice. |

@@ -15,13 +15,15 @@ Table name constants today live in [`minilab_core::events::tables`](../../rust/c
 
 Exactly these **five** append-only evidence families; **no** generic `minilab.events` catch-all.
 
-| Logical family (doc / API name) | PostgreSQL table | `minilab_core::events::tables` const |
-| -------------------------------- | ---------------- | ------------------------------------- |
-| `InstallationEvent` | `minilab.installation_events` | `INSTALLATION_EVENTS` |
-| `AgentCommandEvent` | `minilab.agent_command_events` | `AGENT_COMMAND_EVENTS` |
-| `AgentCommandLeaseEvent` | `minilab.agent_command_lease_events` | `AGENT_COMMAND_LEASE_EVENTS` |
-| `PairingEvent` | `minilab.pairing_events` | `PAIRING_EVENTS` |
-| `AgentCredentialEvent` | `minilab.agent_credential_events` | `AGENT_CREDENTIAL_EVENTS` |
+
+| Logical family (doc / API name) | PostgreSQL table                     | `minilab_core::events::tables` const |
+| ------------------------------- | ------------------------------------ | ------------------------------------ |
+| `InstallationEvent`             | `minilab.installation_events`        | `INSTALLATION_EVENTS`                |
+| `AgentCommandEvent`             | `minilab.agent_command_events`       | `AGENT_COMMAND_EVENTS`               |
+| `AgentCommandLeaseEvent`        | `minilab.agent_command_lease_events` | `AGENT_COMMAND_LEASE_EVENTS`         |
+| `PairingEvent`                  | `minilab.pairing_events`             | `PAIRING_EVENTS`                     |
+| `AgentCredentialEvent`          | `minilab.agent_credential_events`    | `AGENT_CREDENTIAL_EVENTS`            |
+
 
 **Rule:** Rust `SCREAMING_SNAKE_CASE` const values are the **table name only** (no schema prefix); schema is always [`MINILAB_SCHEMA`](../../rust/crates/minilab-core/src/events.rs) (`minilab`).
 
@@ -32,13 +34,15 @@ Exactly these **five** append-only evidence families; **no** generic `minilab.ev
 
 ### Write ownership (default)
 
-| Stream | Primary appender | Notes |
-| ------ | ---------------- | ----- |
-| `installation_events` | Rust (installer / verify path) | TS inspection reads. |
-| `agent_command_events` | Rust (executor) | TS does **not** narrate execution here. |
-| `agent_command_lease_events` | Rust (claim / renew / release) | **Lease authority** must be inspectable separately from command progress. |
-| `pairing_events` | Rust for trust-bearing steps; TS only where explicitly schema-allowed | Exact split of variants is M1; M0 locks **table** and **ownership principle**. |
-| `agent_credential_events` | Rust for trust-bearing lifecycle | Same as pairing. |
+
+| Stream                       | Primary appender                                                      | Notes                                                                          |
+| ---------------------------- | --------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
+| `installation_events`        | Rust (installer / verify path)                                        | TS inspection reads.                                                           |
+| `agent_command_events`       | Rust (executor)                                                       | TS does **not** narrate execution here.                                        |
+| `agent_command_lease_events` | Rust (claim / renew / release)                                        | **Lease authority** must be inspectable separately from command progress.      |
+| `pairing_events`             | Rust for trust-bearing steps; TS only where explicitly schema-allowed | Exact split of variants is M1; M0 locks **table** and **ownership principle**. |
+| `agent_credential_events`    | Rust for trust-bearing lifecycle                                      | Same as pairing.                                                               |
+
 
 Operator/UI-initiated actions that must be durable **without** going through Rust are **out of scope** for M0 unless listed in the event map with an explicit exception; default is **Rust-owned** evidence for trust paths.
 
@@ -76,6 +80,7 @@ Every stream carries enough foreign keys to **reconstruct the story** joined to 
 
 ## Changelog
 
-| Date | Change |
-| ---- | ------ |
+
+| Date       | Change                                                                      |
+| ---------- | --------------------------------------------------------------------------- |
 | 2026-04-19 | Proposed: five streams, ownership defaults, naming, correlation discipline. |

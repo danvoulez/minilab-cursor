@@ -13,22 +13,26 @@ This ADR fixes **semantic boundaries and persistence roles** for M0. It **does n
 
 ### Trust boundary
 
-| Layer | Responsibility |
-| ----- | ---------------- |
+
+| Layer                                                         | Responsibility                                                                                                                                                                             |
+| ------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | **Rust** (agent + any server-side verifier in the trust path) | Verify challenges/signatures/proofs; append **trust-bearing** rows to `minilab.pairing_events` and `minilab.agent_credential_events` per [ADR 0005](0005-typed-evidence-event-streams.md). |
-| **TypeScript** | UX, session orchestration, inspection; **not** the sole authority for minting verified trust claims that skip durable Rust-verified evidence. |
-| **Secrets** | No raw private keys or shared secrets in operator chat, URLs, or logs. Persist **references** (ids, algorithms, handles)—exact columns in M1. |
+| **TypeScript**                                                | UX, session orchestration, inspection; **not** the sole authority for minting verified trust claims that skip durable Rust-verified evidence.                                              |
+| **Secrets**                                                   | No raw private keys or shared secrets in operator chat, URLs, or logs. Persist **references** (ids, algorithms, handles)—exact columns in M1.                                              |
+
 
 ### Persistence surfaces (roles)
 
 Aligned to [§3 — Table roles](../minilab-persistence-domain-model.md):
 
-| Surface | Role | Notes |
-| ------- | ---- | ----- |
-| `pairing_sessions` (name per migration) | **Authoritative** ceremony root | One row represents **one** pairing attempt’s current stage; scoped to **one** `host_id`. |
-| `minilab.pairing_events` | **Append-only evidence** | Narrates the ceremony; `event_type` vocabulary **M1** (not enumerated here). |
-| `agent_credentials` (name per migration) | **Authoritative** credential root | Latest interpretive credential row for a host; scoped to host. |
-| `minilab.agent_credential_events` | **Append-only evidence** | Issuance, rotation, revoke; vocabulary **M1**. |
+
+| Surface                                  | Role                              | Notes                                                                                    |
+| ---------------------------------------- | --------------------------------- | ---------------------------------------------------------------------------------------- |
+| `pairing_sessions` (name per migration)  | **Authoritative** ceremony root   | One row represents **one** pairing attempt’s current stage; scoped to **one** `host_id`. |
+| `minilab.pairing_events`                 | **Append-only evidence**          | Narrates the ceremony; `event_type` vocabulary **M1** (not enumerated here).             |
+| `agent_credentials` (name per migration) | **Authoritative** credential root | Latest interpretive credential row for a host; scoped to host.                           |
+| `minilab.agent_credential_events`        | **Append-only evidence**          | Issuance, rotation, revoke; vocabulary **M1**.                                           |
+
 
 ### Host scope
 
@@ -97,6 +101,7 @@ Stages describe **intent**; persisted enum strings and transitions are locked wh
 
 ## Changelog
 
-| Date       | Change                                                                            |
-| ---------- | --------------------------------------------------------------------------------- |
-| 2026-04-19 | Proposed: trust boundary, persistence roles, stages, reclaim, failure closure.   |
+
+| Date       | Change                                                                         |
+| ---------- | ------------------------------------------------------------------------------ |
+| 2026-04-19 | Proposed: trust boundary, persistence roles, stages, reclaim, failure closure. |
