@@ -2,7 +2,13 @@
 
 Companion to [M0 in milestones-production.md](../milestones-production.md#m0--freeze-shared-contracts). Use issue titles verbatim or prefix with `M0:`.
 
-**Live tracker (GitHub):** [M0 milestone](https://github.com/danvoulez/minilab-cursor/milestone/1) · repo [danvoulez/minilab-cursor](https://github.com/danvoulez/minilab-cursor) — push this SPEC tree there so docs and issues stay aligned.
+**Live tracker (GitHub):** [M0 milestone](https://github.com/danvoulez/minilab-cursor/milestone/1) · repo [danvoulez/minilab-cursor](https://github.com/danvoulez/minilab-cursor).
+
+**Re-enrich issue bodies** (acceptance criteria, links, gates) from this repo after editing templates:
+
+`./scripts/enrich-m0-github-issues.sh`
+
+Bodies live in [`scripts/m0-issue-bodies/`](../../scripts/m0-issue-bodies/).
 
 **Labels (suggested):** `milestone/M0`, `type/contract`, `type/implementation`, `type/gate`.
 
