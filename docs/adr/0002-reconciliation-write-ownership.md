@@ -7,10 +7,12 @@
 
 Minilab treats **security and reconciliation** as a distinct persistence domain. Two authoritative tables carry reconciliation truth:
 
-| Table | Aggregate | Role |
-| ----- | --------- | ---- |
-| `host_desired_state` | `HostDesiredState` | Persisted **intended target** for reconciliation. |
+
+| Table                | Aggregate          | Role                                                                       |
+| -------------------- | ------------------ | -------------------------------------------------------------------------- |
+| `host_desired_state` | `HostDesiredState` | Persisted **intended target** for reconciliation.                          |
 | `host_applied_state` | `HostAppliedState` | Persisted **applied-state summary** grounded in host/install **evidence**. |
+
 
 Drift and operator trust depend on **clear ownership of writes**. Related artifacts:
 
@@ -25,14 +27,16 @@ Phase **0.6** requires: **one port** for writes **or** an **explicitly documente
 
 ### 1. Default: single `ReconciliationRepository` port
 
-All **authoritative mutations** to `host_desired_state` and `host_applied_state` go through a **`ReconciliationRepository`** port (contract-shaped name, not a storage vendor).
+All **authoritative mutations** to `host_desired_state` and `host_applied_state` go through a `**ReconciliationRepository`** port (contract-shaped name, not a storage vendor).
 
 ### 2. Mapping
 
-| Concern | Table | Notes |
-| ------- | ----- | ----- |
-| Desired target | `host_desired_state` | Intent for convergence; explicitly owned. |
+
+| Concern         | Table                | Notes                                       |
+| --------------- | -------------------- | ------------------------------------------- |
+| Desired target  | `host_desired_state` | Intent for convergence; explicitly owned.   |
 | Applied summary | `host_applied_state` | Summary grounded in evidence, not UI vibes. |
+
 
 Reads may exist elsewhere for inspection; **writes** stay behind this port by default.
 
@@ -75,6 +79,7 @@ Until that exists, the **default single port** applies.
 
 ## Changelog
 
-| Date | Change |
-| ---- | ------ |
+
+| Date       | Change                                          |
+| ---------- | ----------------------------------------------- |
 | 2026-04-19 | Proposed (parallel agent draft, parent merged). |

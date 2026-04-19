@@ -12,6 +12,8 @@ Bodies live in [`scripts/m0-issue-bodies/`](../../scripts/m0-issue-bodies/).
 
 **Labels (suggested):** `milestone/M0`, `type/contract`, `type/implementation`, `type/gate`.
 
+**ADR review (0001–0006):** fill [M0-ADR-outcome-matrix.md](M0-ADR-outcome-matrix.md) in dependency order; M0 not gate-passed until all six have an explicit disposition.
+
 ---
 
 ## Contract issues
@@ -69,3 +71,4 @@ _Cannot close M0 until all pass._
 | ---- | ------ |
 | 2026-04-18 | Initial M0 GitHub-style checklist. |
 | 2026-04-19 | Pairing item points at ADR 0006; split M0 vs M1 envelope detail. |
+| 2026-04-18 | Link [M0-ADR-outcome-matrix.md](M0-ADR-outcome-matrix.md) for human ADR disposition. |
