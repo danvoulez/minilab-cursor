@@ -5,6 +5,7 @@ Workspace for Minilab **canonical design artifacts** and **named placeholders** 
 - [Persistence and domain model](docs/minilab-persistence-domain-model.md)
 - [Plan to production](docs/plan-production.md)
 - [DoD & quality control](docs/definition-of-done-and-quality-control.md)
+- [ADRs](docs/adr/README.md)
 - [Production milestones M0–M8](docs/milestones-production.md)
 - [M0 execution checklist](docs/milestones/M0-checklist.md)
 
