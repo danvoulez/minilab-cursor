@@ -4,4 +4,4 @@
 
 **Forbidden:** smuggling reconciliation writes through random repositories without going through this port or the documented alternative.
 
-See [ADR 0002](../../docs/adr/0002-reconciliation-write-ownership.md) · [minilab-persistence-domain-model.md](../../docs/minilab-persistence-domain-model.md) §6.
+See [ADR 0002 (Accepted)](../../docs/adr/0002-reconciliation-write-ownership.md) · [minilab-persistence-domain-model.md](../../docs/minilab-persistence-domain-model.md) §6.

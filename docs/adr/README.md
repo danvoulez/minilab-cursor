@@ -1,8 +1,8 @@
 # Architecture Decision Records (ADRs)
 
-Normative decisions that lock semantics for M0+ contract freeze. **Accepted** ADRs are the default authority for their topic ([review discipline](#authority-order-review-discipline)).
+Normative decisions that lock semantics for M0+ contract freeze. **Accepted** ADRs are the default authority for their topic ([review discipline](#authority-order-review-discipline)) and **supersede** informal stub prose where both exist.
 
-**M0 disposition:** [ADR outcome matrix (0001–0006)](../milestones/M0-ADR-outcome-matrix.md) — first-pass fill-in 2026-04-18; **program gate** may still be conditionally passed until TS + M1 enforcement catch up (see matrix disposition result).
+**M0 (closed):** [ADRs 0001–0006](0001-verify-results-semantics.md) are **Accepted** — canonical for signing, verify results, reconciliation, command lifecycle, typed evidence, and pairing/credential ceremony. Disposition record: [M0-ADR-outcome-matrix.md](../milestones/M0-ADR-outcome-matrix.md) (**Passed**). **Post-M0:** TypeScript alignment and **M1** `event_type`/schema work; see matrix disposition result.
 
 | ADR | Topic | Status |
 | --- | ----- | ------ |

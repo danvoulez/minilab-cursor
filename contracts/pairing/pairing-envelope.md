@@ -1,6 +1,6 @@
 # Pairing / auth envelope
 
-**Normative boundaries (M0):** [ADR 0006 — Pairing and credential ceremony](../docs/adr/0006-pairing-and-credential-ceremony.md) (trust split, stages, reclaim, persistence roles). **Concrete field-level envelope:** M1 + crosswalk after ADR Acceptance.
+**Normative boundaries (Accepted):** [ADR 0006 — Pairing and credential ceremony](../docs/adr/0006-pairing-and-credential-ceremony.md) (trust split, stages, reclaim, persistence roles, terminal/credential rules). **Concrete field-level envelope + `event_type` sets:** M1 + crosswalk.
 
 Trust-critical shapes shared by Rust (ceremony) and TS (UX).
 

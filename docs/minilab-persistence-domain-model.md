@@ -349,8 +349,8 @@ Rust is the operational core near the machine. TypeScript is the human surface, 
 
 When semantics move, update these together so Rust, TypeScript, SQL, and prose stay aligned.
 
-- **[M0 crosswalk](milestones/M0-crosswalk.md)** — concept ↔ Rust ↔ TypeScript ↔ database ↔ documentation mapping table.
-- **ADRs** — [Architecture decision records](adr/README.md): verify-result semantics ([0001](adr/0001-verify-results-semantics.md)), reconciliation write ownership ([0002](adr/0002-reconciliation-write-ownership.md)), manifest signed bytes vs envelope ([0003](adr/0003-manifest-signed-bytes-vs-envelope.md)), command lifecycle ([0004](adr/0004-agent-command-state-machine.md)), typed evidence streams ([0005](adr/0005-typed-evidence-event-streams.md)), pairing and credential ceremony ([0006](adr/0006-pairing-and-credential-ceremony.md)).
+- **[M0 crosswalk](milestones/M0-crosswalk.md)** — concept ↔ Rust ↔ TypeScript ↔ database ↔ documentation mapping table. **M0 semantics are frozen** per Accepted ADRs; empty crosswalk cells are **implementation** gaps, not unspecified meaning.
+- **ADRs (Accepted — canonical for M0)** — [Architecture decision records](adr/README.md): [0001](adr/0001-verify-results-semantics.md), [0002](adr/0002-reconciliation-write-ownership.md), [0003](adr/0003-manifest-signed-bytes-vs-envelope.md), [0004](adr/0004-agent-command-state-machine.md), [0005](adr/0005-typed-evidence-event-streams.md), [0006](adr/0006-pairing-and-credential-ceremony.md). They **supersede** conflicting stub prose.
 - **`minilab-core` (Rust)** — under `../rust/crates/minilab-core/src/`: `command` (`AgentCommandStatus`, string round-trip, `command_transition_allowed` per ADR 0004), `events` (Supabase `minilab.*` evidence stream table name constants per ADR 0005), `manifest_envelope` (JSON envelope field-name constants aligned to ADR 0003).
 - **Event map (per-stream checklist)** — [M0-event-map.md](milestones/M0-event-map.md).
 
@@ -392,15 +392,23 @@ Human-language input may exist at ingress, but execution must run on typed valid
 
 ## 10. Next artifacts
 
-Written decisions for the first three items below are captured in ADRs; **implementation** (migrations, ports, codegen, CI checks) remains ahead.
+### M0 frozen semantics (Accepted ADRs)
 
-- **Manifest signing:** ADR [0003](adr/0003-manifest-signed-bytes-vs-envelope.md) — sign over canonical inner JSON bytes; envelope metadata handled per ADR. Rust: `minilab_core::manifest_envelope` field names as a starter hook.
-- **`VerifyResult`:** ADR [0001](adr/0001-verify-results-semantics.md) — authoritative “latest” vs immutable evidence per attempt; implement in schema and repositories.
-- **Reconciliation:** ADR [0002](adr/0002-reconciliation-write-ownership.md) — single port for desired/applied writes; implement in code.
-- **Command lifecycle:** ADR [0004](adr/0004-agent-command-state-machine.md) — transitions + lease edges; Rust: `command_transition_allowed`. DB constraints / triggers in M1 as needed.
-- **Typed evidence:** ADR [0005](adr/0005-typed-evidence-event-streams.md) + [M0-event-map.md](milestones/M0-event-map.md) — per-stream keys and `event_type` vocabularies land in migrations.
-- **Pairing / credentials:** ADR [0006](adr/0006-pairing-and-credential-ceremony.md) — trust boundary, stages, reclaim; envelope field names and `event_type` sets in M1.
-- Link to Minilab schema migrations / ERD (M1+).
+The following meanings are **decided**; artifacts must **converge** here, not compete:
+
+- **Manifest signing** — [ADR 0003](adr/0003-manifest-signed-bytes-vs-envelope.md): canonical inner JSON bytes, `manifest_hash` format, envelope vs signed payload, fail-closed verify. Rust hook: `minilab_core::manifest_envelope` field names.
+- **`verify_results`** — [ADR 0001](adr/0001-verify-results-semantics.md): immutable attempts vs separate authoritative summary surface.
+- **Reconciliation** — [ADR 0002](adr/0002-reconciliation-write-ownership.md): default single write owner for `host_desired_state` / `host_applied_state`.
+- **Command lifecycle** — [ADR 0004](adr/0004-agent-command-state-machine.md): states, transitions, lease; [`command_transition_allowed`](../rust/crates/minilab-core/src/command.rs).
+- **Typed evidence streams** — [ADR 0005](adr/0005-typed-evidence-event-streams.md) + [M0-event-map.md](milestones/M0-event-map.md): five families, ownership, append-only discipline (**`event_type` vocab = M1**).
+- **Pairing / credentials** — [ADR 0006](adr/0006-pairing-and-credential-ceremony.md): trust boundary, stages, reclaim, terminal outcomes, credential issuance rule (wire-level envelope fields **`event_type` sets = M1**).
+
+### Post-M0 / M1+ (implementation — outside M0 meaning freeze)
+
+- **TypeScript:** align packages, literals, and operator surfaces to Accepted ADRs and crosswalk.
+- **M1 migrations:** materialize schema, FKs, RLS; **`event_type`** `CHECK`/enum per ADR 0005 + event map; pairing/credential constraints per ADR 0006; summary surfaces per ADR 0001.
+- **Rust:** repositories, verify path, executors against real migrations.
+- Link to Minilab schema migrations / ERD.
 - Shared generated contract artifacts for Rust + TypeScript.
 - Build-time contract conformance checks where practical.
 
@@ -417,5 +425,6 @@ Written decisions for the first three items below are captured in ADRs; **implem
 | 2026-04-18 | §7.2 contract sources; §10 aligned to ADRs + `minilab-core` hooks. |
 | 2026-04-19 | ADR 0004/0005 + [M0-event-map.md](milestones/M0-event-map.md); §7.2/§10 updated; ADR authority notes in [adr/README.md](adr/README.md). |
 | 2026-04-19 | ADR 0006 (pairing / credential ceremony); §7.2/§10 pointers. |
+| 2026-04-18 | M0 closed: §7.2 Accepted ADRs + supersede stubs; §10 split M0 frozen vs post-M1. |
 
 

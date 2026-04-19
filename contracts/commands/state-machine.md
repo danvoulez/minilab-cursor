@@ -1,6 +1,6 @@
 # Command state machine
 
-**Source of truth:** [ADR 0004 — AgentCommand state machine](../../docs/adr/0004-agent-command-state-machine.md).
+**Source of truth (Accepted):** [ADR 0004 — AgentCommand state machine](../../docs/adr/0004-agent-command-state-machine.md).
 
 **Rust:** [`AgentCommandStatus`](../../rust/crates/minilab-core/src/command.rs), [`command_transition_allowed`](../../rust/crates/minilab-core/src/command.rs).
 

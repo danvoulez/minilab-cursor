@@ -1,8 +1,8 @@
 # ADR outcome matrix — M0 review
 
-**Disposition snapshot (first pass):** filled **2026-04-18** from a structured draft review; **Reviewer** column **ChatGPT (draft)** records the drafting source. **Confirm** each decision against the full ADR text. **Program M0 gate** remains **conditionally passed** until TypeScript contract convergence and M1 migration-backed `event_type` enforcement ([disposition result](#m0-disposition-result-after-review) below).
+**Disposition snapshot:** **2026-04-18** — all six ADRs **Accepted**; **M0 semantics gate: Passed** ([disposition result](#m0-disposition-result-after-review)). **Reviewer** column **ChatGPT (draft)** records the drafting source for the original pass.
 
-ADR headers in-repo are **Accepted** for 0001–0006 as of the same date; **0005** and **0006** include hardening edits applied in-repo before acceptance.
+**Post-M0 work** (not blocking M0 closure): TypeScript package alignment to Accepted ADRs; **M1** migrations with **`event_type`** enforcement and schema materialization.
 
 **Purpose:** disposition ADRs **0001–0006** with only **three** allowed outcomes:
 
@@ -22,7 +22,7 @@ No softer state. No “looks good for now.” If an ADR carries semantic weight 
 2. If an ADR is **Reject**, name the **replacement or rewrite path immediately** (issue, ADR draft owner, or branch)—no silent vacuum.
 3. If **Accept with edits**, list **only** edits **required for acceptance**; apply them before stacking new ADRs or deep code on that topic.
 4. Once **Accepted**, linked docs and code **converge** to that ADR; they do not compete with it ([authority order](../adr/README.md)).
-5. **ADR disposition** (this matrix + `Accepted` in each file) is necessary but **not sufficient** for full **M0 program gate pass**—see [disposition result](#m0-disposition-result-after-review) for TS/M1 blockers.
+5. After **Passed**, this matrix is the historical record; **new** normative changes require a new ADR or ADR amendment—not silent stub edits.
 
 ---
 
@@ -58,10 +58,10 @@ Same **dependency order** as below; split across two sessions to reduce cognitiv
 | --- | ----- | ---------------- | -------- | -------- | ----- |
 | 0003 | Manifest signed bytes vs envelope | Accepted | Accept | ChatGPT (draft) | Core trust boundary explicit and sharp enough. |
 | 0004 | Command statuses and transitions | Accepted | Accept | ChatGPT (draft) | Lifecycle narrow, exhaustive for M0; avoids semantic backsliding. |
-| 0005 | Typed event streams and ownership | Accepted | Accept with edits | ChatGPT (draft) | Stream split + ownership right; M0 vs M1 `event_type` authority made explicit in ADR (edits applied). |
+| 0005 | Typed event streams and ownership | Accepted | Accept | ChatGPT (draft) | Stream split + ownership; M0 vs M1 `event_type` authority explicit in ADR. |
 | 0001 | `verify_results` semantics | Accepted | Accept | ChatGPT (draft) | Immutable attempts + separate summary surface. |
 | 0002 | Reconciliation write ownership | Accepted | Accept | ChatGPT (draft) | Single-owner default until a written split exists. |
-| 0006 | Pairing and credential ceremony | Accepted | Accept with edits | ChatGPT (draft) | Boundary + ceremony shape for M0; terminal/credential rules hardened in ADR (edits applied). |
+| 0006 | Pairing and credential ceremony | Accepted | Accept | ChatGPT (draft) | Boundary + ceremony shape; terminal/credential rules in ADR. |
 
 ---
 
@@ -115,18 +115,16 @@ Same **dependency order** as below; split across two sessions to reduce cognitiv
 
 **File:** [docs/adr/0005-typed-evidence-event-streams.md](../adr/0005-typed-evidence-event-streams.md)
 
-**Decision:** **Accept with edits** (edits **applied** in ADR: **M0 scope vs M1 (`event_type` authority)**)
+**Decision:** **Accept**
 
-**Why:** Five streams, table alignment, append-only discipline, ownership defaults, correlation principle, no mega-bus—correct shape. **`event_type` vocabularies** deliberately M1; ADR now states explicitly that silence does **not** authorize improvising literals—M1 migrations + [M0-event-map.md](M0-event-map.md) own vocabulary authority.
-
-**Required edits before acceptance:** Done in ADR body (M0 vs M1 section).
+**Why:** Five streams, table alignment, append-only discipline, ownership defaults, correlation principle, no mega-bus—correct shape. **`event_type` vocabularies** are **M1**; ADR states that silence does **not** authorize improvising literals—M1 migrations + [M0-event-map.md](M0-event-map.md) own vocabulary authority (**M0 scope vs M1** section in ADR).
 
 **Authority impact:**
 
 - **Docs:** `Accepted`; event stubs point here.
 - **Rust:** `minilab_core::events` = stream/table constants only, not fake variants ([rustdoc](../../rust/crates/minilab-core/src/events.rs)).
-- **TypeScript:** stream names + ownership assumptions converge.
-- **Migrations / schema:** M1 = `event_type` vocabularies + constraints.
+- **TypeScript (post-M0):** align stream names + ownership assumptions to ADR.
+- **Migrations / schema (M1):** `event_type` vocabularies + constraints.
 
 **Follow-up owner:** Evidence / event-contract owner.
 
@@ -178,18 +176,16 @@ Same **dependency order** as below; split across two sessions to reduce cognitiv
 
 **File:** [docs/adr/0006-pairing-and-credential-ceremony.md](../adr/0006-pairing-and-credential-ceremony.md)
 
-**Decision:** **Accept with edits** (edits **applied** in ADR: **Terminal outcomes and credential issuance**)
+**Decision:** **Accept**
 
-**Why:** Rust/TS trust boundary, persistence roles, host scope, reclaim = new session + terminal old, challenge transcript invariant, no half-credentials, honest deferrals—real M0 artifact. Hardening: explicit **terminal outcomes** (success + credential, terminal failure without credential, reclaim invalidates prior active session) and **credential persistence rule** (no authoritative credential row before completion conditions).
-
-**Required edits before acceptance:** Done in ADR body (terminal + persistence rule block).
+**Why:** Rust/TS trust boundary, persistence roles, host scope, reclaim = new session + terminal old, challenge transcript invariant, no half-credentials, honest deferrals. **Terminal outcomes and credential issuance** block in ADR makes failure/success/reclaim and “no credential before completion” unmistakable.
 
 **Authority impact:**
 
 - **Docs:** `Accepted`; index + crosswalk.
 - **Rust:** pairing runtime aligns to terminal / issuance rules.
-- **TypeScript:** bootstrap UX reflects stages and closures.
-- **Migrations / schema:** M1 lifecycle + event typing as needed.
+- **TypeScript (post-M0):** bootstrap UX reflects stages and closures.
+- **Migrations / schema (M1):** lifecycle + event typing as needed.
 
 **Follow-up owner:** Pairing / security owner.
 
@@ -197,29 +193,26 @@ Same **dependency order** as below; split across two sessions to reduce cognitiv
 
 ## Completion rule
 
-M0 **ADR disposition** is **complete** when:
+M0 **ADR disposition** was **complete** when:
 
-- all six ADRs have a **Decision** in the summary table;
-- **Accepted** ADRs are marked **Accepted** in each file and in [docs/adr/README.md](../adr/README.md);
-- **Accept with edits** items have edits **in the ADR** (or tracked PR) before `Accepted`;
-- **Rejected** ADRs have an **immediate replacement path** named;
+- all six ADRs had a **Decision** in the summary table;
+- **Accepted** ADRs were marked **Accepted** in each file and in [docs/adr/README.md](../adr/README.md);
 - crosswalk and stubs **point at accepted authority**.
 
-**Program M0 gate** may still require TS convergence and M1 enforcement—see below.
+For **future** milestones: **Accept with edits** requires edits in the ADR before `Accepted`; **Reject** requires an immediate replacement path.
 
 ---
 
 ## M0 disposition result (after review)
 
-**M0 disposition result:** **Conditionally passed** (ADR constitutional set accepted; integration gate not fully closed).
+**M0 disposition result:** **Passed**
 
-**Why:** Trust, command lifecycle, verify semantics, reconciliation ownership, stream boundaries, and pairing/credential **boundaries** are now narrow and **Accepted** in-repo. **0005** / **0006** hardening edits are applied.
+**Why:** ADRs **0001–0006** are **Accepted** and are the canonical semantics for signing, `verify_results`, reconciliation ownership, command lifecycle, typed evidence streams, and pairing/credential ceremony. **M0** closes the **specification / meaning** layer; implementation and language-level convergence follow in **post-M0** work.
 
-**Remaining blockers to full M0 gate pass:**
+**Post-M0 (tracked under M1+ and TS workstreams, not M0 blockers):**
 
-- **TypeScript** convergence on accepted contract names and semantics.
-- **M1:** migration-backed **`event_type`** vocabulary and schema enforcement.
-- Optional: human **re-confirmation** that each ADR file still matches this matrix after any later edits.
+- **TypeScript:** contract/package alignment to Accepted ADRs and [M0 crosswalk](M0-crosswalk.md).
+- **M1 migrations:** **`event_type`** vocabulary, `CHECK`/enum enforcement, pairing/credential lifecycle constraints, full schema materialization.
 
 ---
 
@@ -238,20 +231,14 @@ Only three outcomes: Accept | Accept with edits | Reject.
 Full template: https://github.com/danvoulez/minilab-cursor/blob/main/docs/milestones/M0-ADR-outcome-matrix.md
 ```
 
-**First-pass disposition summary (paste after review):**
+**Disposition summary (M0 closed):**
 
 ```text
-Completed first-pass M0 ADR disposition using docs/milestones/M0-ADR-outcome-matrix.md.
+M0 ADR disposition complete — docs/milestones/M0-ADR-outcome-matrix.md
 
-Draft decisions recorded there (summary):
-- 0003 Accept
-- 0004 Accept
-- 0005 Accept with edits (M0 vs M1 event_type authority — edits in ADR)
-- 0001 Accept
-- 0002 Accept
-- 0006 Accept with edits (terminal / credential issuance — edits in ADR)
+All Accept: 0003, 0004, 0005, 0001, 0002, 0006 (ADRs Accepted in repo).
 
-M0 program gate: conditionally passed — ADRs 0001–0006 marked Accepted in repo; remaining work: TS convergence + M1 migration-backed event_type enforcement.
+M0 semantics gate: Passed. Post-M0: TS contract alignment; M1 event_type + schema enforcement.
 
 https://github.com/danvoulez/minilab-cursor/blob/main/docs/milestones/M0-ADR-outcome-matrix.md
 ```
@@ -265,3 +252,4 @@ https://github.com/danvoulez/minilab-cursor/blob/main/docs/milestones/M0-ADR-out
 | 2026-04-18 | Initial matrix template: rules, dependency order, summary table, per-ADR blocks, completion rule, GitHub appendix. |
 | 2026-04-18 | Optional two-pass cadence (0003–0005, then 0001–0002–0006); appendix text aligned to gate notice. |
 | 2026-04-18 | First-pass disposition fill-in; 0005/0006 hardening applied in ADRs; all six Accepted in files + index; conditional program gate called out. |
+| 2026-04-18 | M0 **Passed**: matrix + disposition; 0005/0006 decisions **Accept**; TS/M1 called post-M0. |

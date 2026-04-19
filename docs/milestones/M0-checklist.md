@@ -1,6 +1,6 @@
 # M0 — GitHub-ready checklist
 
-Companion to [M0 in milestones-production.md](../milestones-production.md#m0--freeze-shared-contracts). Use issue titles verbatim or prefix with `M0:`.
+Companion to [M0 in milestones-production.md](../milestones-production.md#m0--freeze-shared-contracts). **Contract meaning** for M0 is **frozen** ([ADRs 0001–0006](../adr/0001-verify-results-semantics.md) Accepted; [matrix](M0-ADR-outcome-matrix.md) **Passed**). Checklist issues may track **implementation** catch-up.
 
 **Live tracker (GitHub):** [M0 milestone](https://github.com/danvoulez/minilab-cursor/milestone/1) · repo [danvoulez/minilab-cursor](https://github.com/danvoulez/minilab-cursor).
 
@@ -72,3 +72,4 @@ _Cannot close M0 until all pass._
 | 2026-04-18 | Initial M0 GitHub-style checklist. |
 | 2026-04-19 | Pairing item points at ADR 0006; split M0 vs M1 envelope detail. |
 | 2026-04-18 | Link [M0-ADR-outcome-matrix.md](M0-ADR-outcome-matrix.md) for human ADR disposition. |
+| 2026-04-18 | Note: M0 semantics closed / matrix Passed; checklist = impl + gates. |

@@ -12,6 +12,8 @@ Execution pressure for [plan-production.md](plan-production.md). Each milestone 
 
 **Goal:** one meaning across Rust, TS, DB, and docs.
 
+**Status:** **M0 semantics closed** — [ADRs 0001–0006](adr/0001-verify-results-semantics.md) **Accepted**; disposition [Passed](milestones/M0-ADR-outcome-matrix.md). Remaining checklist items are **implementation** (TS packages, migrations), not open contract meaning.
+
 ### Includes
 
 - `ManifestSnapshot` contract
