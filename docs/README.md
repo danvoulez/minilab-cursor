@@ -7,5 +7,6 @@
 - [Production milestones (M0–M8)](milestones-production.md)
 - [M0 checklist (GitHub-ready)](milestones/M0-checklist.md)
 - [M0 crosswalk (concept ↔ code ↔ DB)](milestones/M0-crosswalk.md)
+- [M0 event map (typed evidence streams)](milestones/M0-event-map.md)
 - [Domains (one-pagers)](domains/README.md)
 - [Invariants](invariants/README.md)

@@ -9,6 +9,7 @@ Workspace for Minilab **canonical design artifacts** and **named placeholders** 
 - [Production milestones M0–M8](docs/milestones-production.md)
 - [M0 execution checklist](docs/milestones/M0-checklist.md)
 - [M0 crosswalk (concept ↔ code ↔ DB)](docs/milestones/M0-crosswalk.md)
+- [M0 event map (typed evidence)](docs/milestones/M0-event-map.md)
 
 ## Generate layout
 

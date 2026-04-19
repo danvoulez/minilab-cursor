@@ -1,6 +1,6 @@
 //! Typed evidence stream identifiers — **table names** in schema `minilab`.
 //!
-//! **Crosswalk:** [M0-crosswalk.md](../../../../docs/milestones/M0-crosswalk.md) · [domain §8](../../../../docs/minilab-persistence-domain-model.md)
+//! **Normative:** [ADR 0005](../../../../docs/adr/0005-typed-evidence-event-streams.md) · [M0 event map](../../../../docs/milestones/M0-event-map.md) · **Crosswalk:** [M0-crosswalk.md](../../../../docs/milestones/M0-crosswalk.md) · [domain §8](../../../../docs/minilab-persistence-domain-model.md)
 
 pub mod tables {
     pub const INSTALLATION_EVENTS: &str = "installation_events";

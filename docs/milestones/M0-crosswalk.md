@@ -22,9 +22,11 @@ Naming: **DB** uses `snake_case` columns; **JSON/API** should match DB for coord
 
 ## AgentCommand lifecycle
 
+**Normative transitions:** [ADR 0004](../adr/0004-agent-command-state-machine.md) · **`command_transition_allowed`:** [`minilab_core`](../../rust/crates/minilab-core/src/command.rs).
+
 | Concept | Rust | TypeScript | DB column / enum | Doc anchor |
 | ------- | ---- | ---------- | ---------------- | ---------- |
-| Status `pending` | `AgentCommandStatus::Pending` | TBD | `agent_commands.status` | [domain §4](../minilab-persistence-domain-model.md), [minilab-core](../../rust/crates/minilab-core/src/command.rs) |
+| Status `pending` | `AgentCommandStatus::Pending` | TBD | `agent_commands.status` | [domain §4](../minilab-persistence-domain-model.md), [ADR 0004](../adr/0004-agent-command-state-machine.md), [minilab-core](../../rust/crates/minilab-core/src/command.rs) |
 | Status `leased` | `Leased` | TBD | `status` | same |
 | Status `running` | `Running` | TBD | `status` | same |
 | Status `completed` | `Completed` | TBD | `status` | same |
@@ -39,9 +41,11 @@ Naming: **DB** uses `snake_case` columns; **JSON/API** should match DB for coord
 
 ## Typed evidence streams (table names)
 
+**Normative:** [ADR 0005](../adr/0005-typed-evidence-event-streams.md) · **Per-stream checklist:** [M0-event-map.md](M0-event-map.md).
+
 | Concept | Rust | TypeScript | DB schema.table | Doc anchor |
 | ------- | ---- | ---------- | --------------- | ---------- |
-| Installation narrative | TBD enum / row type | TBD | `minilab.installation_events` | [domain §8](../minilab-persistence-domain-model.md), [events.rs](../../rust/crates/minilab-core/src/events.rs) |
+| Installation narrative | TBD enum / row type | TBD | `minilab.installation_events` | [domain §8](../minilab-persistence-domain-model.md), [ADR 0005](../adr/0005-typed-evidence-event-streams.md), [events.rs](../../rust/crates/minilab-core/src/events.rs) |
 | Command execution narrative | TBD | TBD | `minilab.agent_command_events` | §8 |
 | Lease claim/renew/release | TBD | TBD | `minilab.agent_command_lease_events` | §8, §5.1 |
 | Pairing ceremony | TBD | TBD | `minilab.pairing_events` | §8 |
@@ -73,3 +77,4 @@ Naming: **DB** uses `snake_case` columns; **JSON/API** should match DB for coord
 | Date | Change |
 | ---- | ------ |
 | 2026-04-19 | Initial crosswalk; Rust column filled for `AgentCommandStatus` + stream constants. |
+| 2026-04-19 | Linked ADR 0004 (command), ADR 0005 + [M0-event-map.md](M0-event-map.md) (streams). |

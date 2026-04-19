@@ -1,6 +1,6 @@
 //! [`AgentCommand`] lifecycle — authoritative enum for persisted `agent_commands.status`.
 //!
-//! **Crosswalk:** [M0-crosswalk.md](../../../../docs/milestones/M0-crosswalk.md) · strings **must** match DB text enum / check constraint in M1 migrations.
+//! **Normative transitions:** [ADR 0004](../../../../docs/adr/0004-agent-command-state-machine.md) · **Crosswalk:** [M0-crosswalk.md](../../../../docs/milestones/M0-crosswalk.md) · strings **must** match DB text enum / check constraint in M1 migrations.
 
 /// Command row lifecycle (`agent_commands.status` in PostgreSQL).
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
@@ -42,6 +42,51 @@ impl AgentCommandStatus {
             _ => return None,
         })
     }
+
+    /// Terminal states — no outbound transitions except idempotent self-replay.
+    #[inline]
+    pub const fn is_terminal(self) -> bool {
+        matches!(
+            self,
+            Self::Completed | Self::Failed | Self::Cancelled | Self::DeadLetter
+        )
+    }
+}
+
+/// Whether `from → to` is allowed per [ADR 0004](../../../../docs/adr/0004-agent-command-state-machine.md).
+///
+/// `from == to` is allowed (idempotent replay). From any terminal state, only self is allowed.
+#[inline]
+pub fn command_transition_allowed(from: AgentCommandStatus, to: AgentCommandStatus) -> bool {
+    if from == to {
+        return true;
+    }
+    if from.is_terminal() {
+        return false;
+    }
+    matches!(
+        (from, to),
+        (
+            AgentCommandStatus::Pending,
+            AgentCommandStatus::Leased
+                | AgentCommandStatus::Cancelled
+                | AgentCommandStatus::DeadLetter
+                | AgentCommandStatus::Failed
+        ) | (
+            AgentCommandStatus::Leased,
+            AgentCommandStatus::Pending
+                | AgentCommandStatus::Running
+                | AgentCommandStatus::Cancelled
+                | AgentCommandStatus::DeadLetter
+                | AgentCommandStatus::Failed
+        ) | (
+            AgentCommandStatus::Running,
+            AgentCommandStatus::Completed
+                | AgentCommandStatus::Failed
+                | AgentCommandStatus::Cancelled
+                | AgentCommandStatus::DeadLetter
+        )
+    )
 }
 
 impl std::fmt::Display for AgentCommandStatus {
@@ -67,5 +112,19 @@ mod tests {
         ] {
             assert_eq!(AgentCommandStatus::parse(s.as_str()), Some(s));
         }
+    }
+
+    #[test]
+    fn transition_matrix_samples() {
+        use AgentCommandStatus::*;
+        assert!(command_transition_allowed(Pending, Leased));
+        assert!(command_transition_allowed(Leased, Pending));
+        assert!(command_transition_allowed(Leased, Running));
+        assert!(command_transition_allowed(Running, Completed));
+        assert!(!command_transition_allowed(Pending, Running));
+        assert!(!command_transition_allowed(Pending, Completed));
+        assert!(!command_transition_allowed(Running, Pending));
+        assert!(!command_transition_allowed(Failed, Pending));
+        assert!(command_transition_allowed(Failed, Failed));
     }
 }

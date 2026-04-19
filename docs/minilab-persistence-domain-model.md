@@ -350,8 +350,9 @@ Rust is the operational core near the machine. TypeScript is the human surface, 
 When semantics move, update these together so Rust, TypeScript, SQL, and prose stay aligned.
 
 - **[M0 crosswalk](milestones/M0-crosswalk.md)** — concept ↔ Rust ↔ TypeScript ↔ database ↔ documentation mapping table.
-- **ADRs** — [Architecture decision records](adr/README.md): verify-result semantics ([0001](adr/0001-verify-results-semantics.md)), reconciliation write ownership ([0002](adr/0002-reconciliation-write-ownership.md)), manifest signed bytes vs envelope ([0003](adr/0003-manifest-signed-bytes-vs-envelope.md)).
-- **`minilab-core` (Rust)** — under `../rust/crates/minilab-core/src/`: `command` (`AgentCommandStatus` and string round-trip), `events` (Supabase `minilab.*` evidence stream table name constants), `manifest_envelope` (JSON envelope field-name constants aligned to ADR 0003).
+- **ADRs** — [Architecture decision records](adr/README.md): verify-result semantics ([0001](adr/0001-verify-results-semantics.md)), reconciliation write ownership ([0002](adr/0002-reconciliation-write-ownership.md)), manifest signed bytes vs envelope ([0003](adr/0003-manifest-signed-bytes-vs-envelope.md)), command lifecycle ([0004](adr/0004-agent-command-state-machine.md)), typed evidence streams ([0005](adr/0005-typed-evidence-event-streams.md)).
+- **`minilab-core` (Rust)** — under `../rust/crates/minilab-core/src/`: `command` (`AgentCommandStatus`, string round-trip, `command_transition_allowed` per ADR 0004), `events` (Supabase `minilab.*` evidence stream table name constants per ADR 0005), `manifest_envelope` (JSON envelope field-name constants aligned to ADR 0003).
+- **Event map (per-stream checklist)** — [M0-event-map.md](milestones/M0-event-map.md).
 
 ---
 
@@ -396,6 +397,8 @@ Written decisions for the first three items below are captured in ADRs; **implem
 - **Manifest signing:** ADR [0003](adr/0003-manifest-signed-bytes-vs-envelope.md) — sign over canonical inner JSON bytes; envelope metadata handled per ADR. Rust: `minilab_core::manifest_envelope` field names as a starter hook.
 - **`VerifyResult`:** ADR [0001](adr/0001-verify-results-semantics.md) — authoritative “latest” vs immutable evidence per attempt; implement in schema and repositories.
 - **Reconciliation:** ADR [0002](adr/0002-reconciliation-write-ownership.md) — single port for desired/applied writes; implement in code.
+- **Command lifecycle:** ADR [0004](adr/0004-agent-command-state-machine.md) — transitions + lease edges; Rust: `command_transition_allowed`. DB constraints / triggers in M1 as needed.
+- **Typed evidence:** ADR [0005](adr/0005-typed-evidence-event-streams.md) + [M0-event-map.md](milestones/M0-event-map.md) — per-stream keys and `event_type` vocabularies land in migrations.
 - Link to Minilab schema migrations / ERD (M1+).
 - Shared generated contract artifacts for Rust + TypeScript.
 - Build-time contract conformance checks where practical.
@@ -411,5 +414,6 @@ Written decisions for the first three items below are captured in ADRs; **implem
 | 2026-04-18 | Canonical prose filled: domains, roles, aggregates, invariants, ports, Rust/TS ownership.      |
 | 2026-04-18 | `agent_messages` as authoritative child of `AgentThread`; §5.1 messages vs execution evidence. |
 | 2026-04-18 | §7.2 contract sources; §10 aligned to ADRs + `minilab-core` hooks. |
+| 2026-04-19 | ADR 0004/0005 + [M0-event-map.md](milestones/M0-event-map.md); §7.2/§10 updated; ADR authority notes in [adr/README.md](adr/README.md). |
 
 

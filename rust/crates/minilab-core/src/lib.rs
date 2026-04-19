@@ -6,4 +6,4 @@ pub mod command;
 pub mod events;
 pub mod manifest_envelope;
 
-pub use command::AgentCommandStatus;
+pub use command::{command_transition_allowed, AgentCommandStatus};

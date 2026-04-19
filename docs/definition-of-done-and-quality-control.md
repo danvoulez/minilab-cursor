@@ -51,7 +51,7 @@ A PR (or shippable chunk) is **done** when all of the following hold:
 
 - **Single meaning:** Same enum/state/event names and semantics in Rust, TS, and docs (use M0 crosswalk or equivalent).
 - **Signed manifest:** Canonical bytes, hash, and signature rules are **one** documented rule; verify **fails closed**.
-- `**verify_results`:** Table role is explicit (evidence vs summary); no mixed semantics without a written rule ([§3B](minilab-persistence-domain-model.md)).
+- **`verify_results`:** Table role is explicit (evidence vs summary); no mixed semantics without a written rule ([§3B](minilab-persistence-domain-model.md)).
 - **Reconciliation:** Desired/applied writes go through **one** port or a **documented** split — not ad hoc updates.
 
 ### 2.2 Persistence and RLS
