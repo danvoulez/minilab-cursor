@@ -17,12 +17,8 @@ Without a single rule, publisher and agent drift; verification weakens. This ADR
 
 1. The publisher **MUST** assemble one JSON **object** (the **inner manifest**) from publication truth for the given `schema_version` (roles, assignment rules, payloads, discovery, verify steps, secrets, etc., per manifest schema).
 2. The publisher **MUST** serialize that object to **canonical JSON bytes** using **RFC 8785 (JCS)** or a byte-for-byte equivalent proven on **shared CI test vectors** with every other producer/consumer.
-3. The publisher **MUST** compute
-  `manifest_hash = "sha256:" + SHA256(canonical_bytes).hex()`  
-   (or the exact string format already fixed in README/contracts—**one** format; consumers **MUST** parse equality the same way).
-4. The publisher **MUST** compute
-  `manifest_sig = Ed25519_sign(signing_private_key, canonical_bytes)`  
-   i.e. signature is over the **same canonical byte sequence** that was hashed, **not** over the hex `manifest_hash` string unless a future ADR changes that uniformly (default **forbidden**).
+3. The publisher **MUST** compute `manifest_hash = "sha256:" + SHA256(canonical_bytes).hex()` (or the exact string format already fixed in README/contracts—**one** format; consumers **MUST** parse equality the same way).
+4. The publisher **MUST** compute `manifest_sig = Ed25519_sign(signing_private_key, canonical_bytes)` — i.e. signature is over the **same canonical byte sequence** that was hashed, **not** over the hex `manifest_hash` string unless a future ADR changes that uniformly (default **forbidden**).
 
 ### Signing / transport envelope (not mixed into canonical bytes for signing)
 

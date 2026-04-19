@@ -27,7 +27,7 @@ Phase **0.6** requires: **one port** for writes **or** an **explicitly documente
 
 ### 1. Default: single `ReconciliationRepository` port
 
-All **authoritative mutations** to `host_desired_state` and `host_applied_state` go through a `**ReconciliationRepository`** port (contract-shaped name, not a storage vendor).
+All **authoritative mutations** to `host_desired_state` and `host_applied_state` go through the **`ReconciliationRepository`** port (contract-shaped name, not a storage vendor).
 
 ### 2. Mapping
 
