@@ -1,3 +1,9 @@
-//! Shared Rust types: crypto verify helpers, command state, event types (as needed).
+//! Shared Minilab contracts: command lifecycle, evidence stream names, manifest envelope keys.
 //!
-//! See workspace `docs/minilab-persistence-domain-model.md` §7.
+//! **Do not duplicate semantics** — see [M0-crosswalk.md](../../../../docs/milestones/M0-crosswalk.md) and [ADRs](../../../../docs/adr/README.md).
+
+pub mod command;
+pub mod events;
+pub mod manifest_envelope;
+
+pub use command::AgentCommandStatus;

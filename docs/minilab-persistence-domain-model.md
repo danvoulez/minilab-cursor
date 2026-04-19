@@ -345,6 +345,14 @@ Ports should be named after aggregates or contract surfaces, not after storage v
 
 Rust is the operational core near the machine. TypeScript is the human surface, publishing surface, and inspection layer. They may duplicate implementation, but they must not diverge in meaning.
 
+### 7.2 Contract sources
+
+When semantics move, update these together so Rust, TypeScript, SQL, and prose stay aligned.
+
+- **[M0 crosswalk](milestones/M0-crosswalk.md)** — concept ↔ Rust ↔ TypeScript ↔ database ↔ documentation mapping table.
+- **ADRs** — [Architecture decision records](adr/README.md): verify-result semantics ([0001](adr/0001-verify-results-semantics.md)), reconciliation write ownership ([0002](adr/0002-reconciliation-write-ownership.md)), manifest signed bytes vs envelope ([0003](adr/0003-manifest-signed-bytes-vs-envelope.md)).
+- **`minilab-core` (Rust)** — under `../rust/crates/minilab-core/src/`: `command` (`AgentCommandStatus` and string round-trip), `events` (Supabase `minilab.*` evidence stream table name constants), `manifest_envelope` (JSON envelope field-name constants aligned to ADR 0003).
+
 ---
 
 ## 8. Typed event streams (no mega-bus)
@@ -383,12 +391,14 @@ Human-language input may exist at ingress, but execution must run on typed valid
 
 ## 10. Next artifacts
 
-- Single written rule: what exactly is inside signed bytes vs envelope metadata
-- `VerifyResult`: authoritative “latest” vs immutable evidence per attempt
-- Reconciliation: single port for desired/applied writes
-- Link to Minilab schema migrations / ERD
-- Shared generated contract artifacts for Rust + TypeScript
-- Build-time contract conformance checks where practical
+Written decisions for the first three items below are captured in ADRs; **implementation** (migrations, ports, codegen, CI checks) remains ahead.
+
+- **Manifest signing:** ADR [0003](adr/0003-manifest-signed-bytes-vs-envelope.md) — sign over canonical inner JSON bytes; envelope metadata handled per ADR. Rust: `minilab_core::manifest_envelope` field names as a starter hook.
+- **`VerifyResult`:** ADR [0001](adr/0001-verify-results-semantics.md) — authoritative “latest” vs immutable evidence per attempt; implement in schema and repositories.
+- **Reconciliation:** ADR [0002](adr/0002-reconciliation-write-ownership.md) — single port for desired/applied writes; implement in code.
+- Link to Minilab schema migrations / ERD (M1+).
+- Shared generated contract artifacts for Rust + TypeScript.
+- Build-time contract conformance checks where practical.
 
 ---
 
@@ -400,5 +410,6 @@ Human-language input may exist at ingress, but execution must run on typed valid
 | 2026-04-18 | Scaffold created.                                                                              |
 | 2026-04-18 | Canonical prose filled: domains, roles, aggregates, invariants, ports, Rust/TS ownership.      |
 | 2026-04-18 | `agent_messages` as authoritative child of `AgentThread`; §5.1 messages vs execution evidence. |
+| 2026-04-18 | §7.2 contract sources; §10 aligned to ADRs + `minilab-core` hooks. |
 
 

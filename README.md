@@ -8,6 +8,7 @@ Workspace for Minilab **canonical design artifacts** and **named placeholders** 
 - [ADRs](docs/adr/README.md)
 - [Production milestones M0–M8](docs/milestones-production.md)
 - [M0 execution checklist](docs/milestones/M0-checklist.md)
+- [M0 crosswalk (concept ↔ code ↔ DB)](docs/milestones/M0-crosswalk.md)
 
 ## Generate layout
 
@@ -36,6 +37,6 @@ To pick up new text for a **single** stub (e.g. `design/ports/ReconciliationRepo
 | `references/schemas/minilab/` | Table stubs: `authoritative/`, `publication_truth/`, `evidence/`, `read_models/` |
 | `references/schemas/public/` | Thin RPC edge stubs |
 | `references/migrations/` | Link real Supabase migrations here when wired |
-| `rust/` | Workspace + `minilab-agent`, `minilab-core` placeholders (`cargo check` clean) |
+| `rust/` | Workspace: `minilab-core` (M0 shared types/constants), `minilab-agent` (re-exports core where needed) |
 | `ts/packages/` | `operator-ui`, `grammar`, `publisher`, `read_models`, `supabase_operator` |
 | `scripts/` | `init-workspace.sh` |
