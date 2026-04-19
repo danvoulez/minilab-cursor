@@ -1,6 +1,6 @@
 # ADR 0005: Typed evidence streams — families, tables, ownership
 
-**Status:** Proposed  
+**Status:** Accepted  
 **Date:** 2026-04-19
 
 ## Context
@@ -56,6 +56,12 @@ Every stream carries enough foreign keys to **reconstruct the story** joined to 
 - **Rust:** PascalCase type names for families; `event_type` strings remain `snake_case`.
 - **TypeScript:** PascalCase interfaces / unions mirroring Rust **semantics**; literal strings match DB.
 
+### M0 scope vs M1 (`event_type` authority)
+
+**This ADR freezes for M0:** the five stream families, physical table names, append-only row discipline, default write ownership, correlation principle, and naming alignment.
+
+**Explicitly deferred to M1 (not implied by silence here):** concrete **`event_type` vocabularies** per table, database-backed enforcement (`CHECK`, enum types), and any expansion of [`minilab_core::events`](../../rust/crates/minilab-core/src/events.rs) beyond **table name** and schema constants. **M1 migrations** plus updates to [M0-event-map.md](../milestones/M0-event-map.md) become the **authority** for those vocabularies—ad hoc TS/Rust strings are not permitted to invent production meaning ahead of that.
+
 ## Authority ordering
 
 - Once **Accepted**, this ADR + [M0-event-map.md](../milestones/M0-event-map.md) supersede informal mentions in stubs.
@@ -84,3 +90,4 @@ Every stream carries enough foreign keys to **reconstruct the story** joined to 
 | Date       | Change                                                                      |
 | ---------- | --------------------------------------------------------------------------- |
 | 2026-04-19 | Proposed: five streams, ownership defaults, naming, correlation discipline. |
+| 2026-04-18 | Accepted — M0 first-pass disposition; added M0 vs M1 `event_type` authority ([matrix](../milestones/M0-ADR-outcome-matrix.md)). |

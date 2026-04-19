@@ -1,6 +1,7 @@
 # M0 crosswalk — Concept → Rust → TypeScript → DB → Doc
 
 **Gate:** [GATE M0 Crosswalk](https://github.com/danvoulez/minilab-cursor/issues/16).  
+**ADRs:** [0001](../adr/0001-verify-results-semantics.md)–[0006](../adr/0006-pairing-and-credential-ceremony.md) are **Accepted** (see [M0-ADR-outcome-matrix.md](M0-ADR-outcome-matrix.md)); crosswalk rows must not contradict them.  
 **Rule:** empty cells need an owner + issue or `N/A` with reason.
 
 Naming: **DB** uses `snake_case` columns; **JSON/API** should match DB for coordination fields unless a mapping layer is documented.
@@ -81,3 +82,4 @@ Naming: **DB** uses `snake_case` columns; **JSON/API** should match DB for coord
 | 2026-04-19 | Initial crosswalk; Rust column filled for `AgentCommandStatus` + stream constants. |
 | 2026-04-19 | Linked ADR 0004 (command), ADR 0005 + [M0-event-map.md](M0-event-map.md) (streams). |
 | 2026-04-19 | ADR 0006 (pairing / credentials) replaces “ADR TBD” in crosswalk. |
+| 2026-04-18 | Note: ADRs 0001–0006 Accepted; matrix is disposition record. |

@@ -1,6 +1,6 @@
 # ADR 0003: Manifest signed bytes vs signing envelope
 
-**Status:** Proposed  
+**Status:** Accepted  
 **Date:** 2026-04-19
 
 ## Context
@@ -85,7 +85,7 @@ Implementations **MUST** conform to this ADR. Stubs under `contracts/manifest/` 
 
 ## Changelog
 
-
 | Date       | Change                                                                 |
 | ---------- | ---------------------------------------------------------------------- |
 | 2026-04-19 | Proposed (parallel agent draft; signing = canonical bytes per README). |
+| 2026-04-18 | Accepted — M0 first-pass disposition ([matrix](../milestones/M0-ADR-outcome-matrix.md)). |

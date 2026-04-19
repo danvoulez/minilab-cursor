@@ -1,6 +1,6 @@
 # ADR 0004: `AgentCommand` lifecycle — states, transitions, lease, retries
 
-**Status:** Proposed  
+**Status:** Accepted  
 **Date:** 2026-04-19
 
 ## Context
@@ -118,9 +118,7 @@ stateDiagram-v2
 
 ## Changelog
 
-
 | Date       | Change                                                          |
 | ---------- | --------------------------------------------------------------- |
 | 2026-04-19 | Proposed: states, transitions, lease, retries, authority order. |
-
-
+| 2026-04-18 | Accepted — M0 first-pass disposition ([matrix](../milestones/M0-ADR-outcome-matrix.md)). |

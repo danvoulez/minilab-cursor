@@ -1,6 +1,6 @@
 # ADR 0006: Pairing and host-scoped credential ceremony
 
-**Status:** Proposed  
+**Status:** Accepted  
 **Date:** 2026-04-19
 
 ## Context
@@ -71,6 +71,16 @@ Stages describe **intent**; persisted enum strings and transitions are locked wh
 - **failed** or **reclaimed** sessions do not issue half-credentials; partial issuance is **rejected** (rollback or never commit credential row—M1 transaction boundaries).
 - Recovery after partition: **durable reread** of session + streams; Realtime is wake-up only ([§8 / Invariant 8](../minilab-persistence-domain-model.md)).
 
+### Terminal outcomes and credential issuance (M0)
+
+**Pairing session** must end in one of these **durable** outcomes:
+
+- **Success path:** ceremony completes; a **host-scoped credential** is issued **only** after completion conditions in this ADR are satisfied—persisted on `agent_credentials` / `minilab.agent_credential_events` with matching evidence.
+- **Terminal failure:** session ends **failed**; **no** credential is issued; inspectable reason in `minilab.pairing_events`.
+- **Reclaim / supersede:** the superseded session is **terminal** (**reclaimed** or **failed** with superseded-class reason—one convention in M1, documented in crosswalk). A **new** `pairing_sessions` row is the sole locus of continued pairing; **no** overlapping active authority across old and new session ids.
+
+**Credential persistence rule:** **Do not** persist an authoritative `agent_credentials` row (or equivalent material) **before** ceremony **completion conditions** are satisfied—cryptographic verification complete, session stage permits issuance, and required evidence rows recorded. Partial or speculative credential rows ahead of completion are **rejected** (M1 transactions should enforce atomicity).
+
 ### Explicitly out of scope (M1+)
 
 - Exact JSON / Protobuf field names for [pairing-envelope.md](../../contracts/pairing/pairing-envelope.md).
@@ -105,3 +115,4 @@ Stages describe **intent**; persisted enum strings and transitions are locked wh
 | Date       | Change                                                                         |
 | ---------- | ------------------------------------------------------------------------------ |
 | 2026-04-19 | Proposed: trust boundary, persistence roles, stages, reclaim, failure closure. |
+| 2026-04-18 | Accepted — M0 first-pass disposition; terminal/credential issuance hardening ([matrix](../milestones/M0-ADR-outcome-matrix.md)). |

@@ -1,6 +1,6 @@
 # ADR 0002: Reconciliation write ownership (`host_desired_state` / `host_applied_state`)
 
-**Status:** Proposed  
+**Status:** Accepted  
 **Date:** 2026-04-19
 
 ## Context
@@ -83,3 +83,4 @@ Until that exists, the **default single port** applies.
 | Date       | Change                                          |
 | ---------- | ----------------------------------------------- |
 | 2026-04-19 | Proposed (parallel agent draft, parent merged). |
+| 2026-04-18 | Accepted — M0 first-pass disposition ([matrix](../milestones/M0-ADR-outcome-matrix.md)). |

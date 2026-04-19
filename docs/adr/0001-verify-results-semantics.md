@@ -1,6 +1,6 @@
 # ADR 0001: `verify_results` semantics — evidence vs authoritative summary
 
-**Status:** Proposed  
+**Status:** Accepted  
 **Date:** 2026-04-19
 
 ## Context
@@ -62,6 +62,7 @@ This risk is load-bearing for production intent: [plan-production.md](../plan-pr
 
 ## Changelog
 
-| Date | Change |
-| ---- | ------ |
-| 2026-04-19 | Proposed (parallel agent draft, parent merged). |
+| Date       | Change                                                         |
+| ---------- | -------------------------------------------------------------- |
+| 2026-04-19 | Proposed (parallel agent draft, parent merged).                |
+| 2026-04-18 | Accepted — M0 first-pass disposition ([matrix](../milestones/M0-ADR-outcome-matrix.md)). |
