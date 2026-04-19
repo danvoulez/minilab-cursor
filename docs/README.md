@@ -9,5 +9,6 @@
 - [M0 crosswalk (concept ↔ code ↔ DB)](milestones/M0-crosswalk.md)
 - [M0 event map (typed evidence streams)](milestones/M0-event-map.md)
 - [M0 ADR outcome matrix (0001–0006 review)](milestones/M0-ADR-outcome-matrix.md)
+- [M1-A — first durable command vertical](milestones/M1-A-command-vertical-checklist.md)
 - [Domains (one-pagers)](domains/README.md)
 - [Invariants](invariants/README.md)

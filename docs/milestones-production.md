@@ -59,6 +59,8 @@ Execution pressure for [plan-production.md](plan-production.md). Each milestone 
 
 **Goal:** real persistence matches the domain model.
 
+**First execution slice:** [M1-A — command vertical checklist](milestones/M1-A-command-vertical-checklist.md) (persist → claim → lease event → typed execute → command event → inspect). Start here before broadening M1 scope.
+
 ### Includes
 
 - `minilab` schema tables
