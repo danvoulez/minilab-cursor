@@ -4,6 +4,8 @@
 
 pub mod command;
 pub mod events;
+pub mod m1a;
 pub mod manifest_envelope;
 
 pub use command::{command_transition_allowed, AgentCommandStatus};
+pub use m1a::{AgentCommandJournalEventKind, AgentCommandLeaseEventKind};

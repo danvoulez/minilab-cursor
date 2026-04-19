@@ -1,0 +1,20 @@
+{
+  "name": "@minilab/contracts",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Frozen M0/M1-A names aligned to minilab-core and ADRs 0004–0006.",
+  "type": "module",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json"
+  },
+  "devDependencies": {
+    "typescript": "~5.4.0"
+  }
+}

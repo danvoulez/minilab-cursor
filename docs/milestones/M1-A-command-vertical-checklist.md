@@ -42,8 +42,9 @@ Stop TS from lagging **Accepted** semantics (names and meanings, not full featur
 
 ## Track 2 — M1 migrations (minimum for M1-A)
 
-- `minilab.agent_commands` with status CHECK / enum + lease + idempotency columns per crosswalk.
-- `minilab.agent_command_lease_events` and `minilab.agent_command_events` with PK, `occurred_at`, FK to command, **`event_type`** with initial small allowed set (ADR 0005: vocab authority moves to migrations—expand deliberately).
+**Starter migration (repo):** [`references/migrations/20260418120000_m1a_minilab_agent_command_spine.sql`](../../references/migrations/20260418120000_m1a_minilab_agent_command_spine.sql) — `agent_commands` + lease/journal event tables + initial `event_type` CHECK lists (must stay aligned with [`minilab_core::m1a`](../../rust/crates/minilab-core/src/m1a.rs)).
+
+- Apply in Supabase staging / local Postgres (`gen_random_uuid()` requires PG ≥ 13).
 - Document agent vs operator **RLS** or service-role path (minimal acceptable if explicitly gated).
 
 ---

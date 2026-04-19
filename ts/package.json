@@ -1,5 +1,6 @@
 {
   "name": "minilab-ts-workspace",
   "private": true,
-  "description": "Placeholder workspace root; wire workspaces when packages are real."
+  "description": "TypeScript packages; start with @minilab/contracts (M0/M1-A names).",
+  "workspaces": ["packages/*"]
 }

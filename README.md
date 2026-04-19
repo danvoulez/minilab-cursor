@@ -10,6 +10,7 @@ Workspace for Minilab **canonical design artifacts** and **named placeholders** 
 - [M0 execution checklist](docs/milestones/M0-checklist.md)
 - [M0 crosswalk (concept ↔ code ↔ DB)](docs/milestones/M0-crosswalk.md)
 - [M0 event map (typed evidence)](docs/milestones/M0-event-map.md)
+- [M1-A — first command vertical](docs/milestones/M1-A-command-vertical-checklist.md)
 
 ## Generate layout
 
@@ -37,7 +38,7 @@ To pick up new text for a **single** stub (e.g. `design/ports/ReconciliationRepo
 | `contracts/` | Manifest, commands, events, grammar, pairing, read-model contract stubs |
 | `references/schemas/minilab/` | Table stubs: `authoritative/`, `publication_truth/`, `evidence/`, `read_models/` |
 | `references/schemas/public/` | Thin RPC edge stubs |
-| `references/migrations/` | Link real Supabase migrations here when wired |
-| `rust/` | Workspace: `minilab-core` (M0 shared types/constants), `minilab-agent` (re-exports core where needed) |
-| `ts/packages/` | `operator-ui`, `grammar`, `publisher`, `read_models`, `supabase_operator` |
+| `references/migrations/` | SQL migrations (includes **M1-A** agent command spine); apply in Supabase / Postgres |
+| `rust/` | `minilab-core` (M0 + **M1-A** event kinds), `minilab-agent` (`command_spine` for M1-A checklist) |
+| `ts/packages/` | `@minilab/contracts` (statuses, tables, M1-A event literals); other packages TBD |
 | `scripts/` | `init-workspace.sh` |
