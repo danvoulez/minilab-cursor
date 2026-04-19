@@ -1,0 +1,5 @@
+{
+  "name": "minilab-ts-workspace",
+  "private": true,
+  "description": "Placeholder workspace root; wire workspaces when packages are real."
+}
