@@ -4,6 +4,8 @@ Execution pressure for [plan-production.md](plan-production.md). Each milestone 
 
 **Do not add dates until real capacity is known.**
 
+**When is a milestone really done?** See [definition-of-done-and-quality-control.md](definition-of-done-and-quality-control.md) (milestone DoD, PR DoD, QC checklists, merge blockers).
+
 ---
 
 ## M0 — Freeze shared contracts

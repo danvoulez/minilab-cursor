@@ -4,6 +4,8 @@ Canonical narrative for how Minilab becomes **real**: preserved contracts under 
 
 **Mindset:** you are shipping **continuity with proof**—inspectable operational memory, not chat or a control panel alone.
 
+**DoD and quality control:** [definition-of-done-and-quality-control.md](definition-of-done-and-quality-control.md) — milestone gates, PR bar, review checklists, merge blockers.
+
 ---
 
 ## Definition of production
