@@ -59,7 +59,7 @@ Optional cross-cutting columns (M1+): `correlation_id`, `causation_event_id`—o
 | ----- | ------- |
 | Correlation | **Required:** `pairing_session_id`; **expected:** `host_id`. |
 | Writers | Rust for trust-bearing transitions; TS only where schema explicitly allows UX-only evidence. |
-| `event_type` vocabulary | **TBD** in M1 (pairing ADR / contract to follow). |
+| `event_type` vocabulary | **TBD** in M1; ceremony **stages and reclaim** semantics: [ADR 0006](../adr/0006-pairing-and-credential-ceremony.md). |
 
 ---
 

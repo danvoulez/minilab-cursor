@@ -7,7 +7,7 @@
 
 Durable commands are the **spine of coordination**: leasing, idempotency, operator honesty, and auditability all assume **one** shared lifecycle. If Rust, TypeScript, and the database disagree on legal transitions—or if “almost the same” states are overloaded—workers double-run work, commands get stuck, or evidence stops matching rows.
 
-Today the **state vocabulary** is fixed (`pending`, `leased`, `running`, `completed`, `failed`, `cancelled`, `dead_letter`) and mirrored in `[minilab_core::command::AgentCommandStatus](../../rust/crates/minilab-core/src/command.rs)`. What was missing is a **single normative transition contract**: who may move which edge, how lease expiry behaves, and how retries relate to terminals.
+Today the **state vocabulary** is fixed (`pending`, `leased`, `running`, `completed`, `failed`, `cancelled`, `dead_letter`) and mirrored in [`minilab_core::command::AgentCommandStatus`](../../rust/crates/minilab-core/src/command.rs). What was missing is a **single normative transition contract**: who may move which edge, how lease expiry behaves, and how retries relate to terminals.
 
 ## Decision
 
@@ -30,7 +30,7 @@ Today the **state vocabulary** is fixed (`pending`, `leased`, `running`, `comple
 ### Lease interaction
 
 - **Claim:** `pending` → `leased` when a worker successfully sets lease fields (atomic claim in `CommandRepository` / SQL).
-- **Expiry / release:** `leased` → `pending` when the lease is **no longer authoritative** (expired, explicitly released, or superseded by a documented reclaim path). Lease changes **must** produce rows in `**minilab.agent_command_lease_events`** (see ADR 0005 / [M0 event map](../milestones/M0-event-map.md)), not only freeform command text.
+- **Expiry / release:** `leased` → `pending` when the lease is **no longer authoritative** (expired, explicitly released, or superseded by a documented reclaim path). Lease changes **must** produce rows in **`minilab.agent_command_lease_events`** (see ADR 0005 / [M0 event map](../milestones/M0-event-map.md)), not only freeform command text.
 - **Start execution:** `leased` → `running` when the executor acknowledges start (may be immediate after claim).
 - **Illegal:** `pending` → `running` or `pending` → `completed` (must pass through `leased` → `running` for executed work).
 
@@ -46,7 +46,7 @@ Today the **state vocabulary** is fixed (`pending`, `leased`, `running`, `comple
 
 ### Dead letter
 
-- `dead_letter` is terminal. Enter from `**pending`**, `**leased**`, or `**running**` when the command must **not** be retried automatically and is not a normal `failed` outcome (e.g. poison payload, operator-marked abandon, policy cap). Exact automation for “max attempts” is **implementation** in M1+; this ADR only fixes **graph edges** and terminality.
+- `dead_letter` is terminal. Enter from `pending`, `leased`, or `running` when the command must **not** be retried automatically and is not a normal `failed` outcome (e.g. poison payload, operator-marked abandon, policy cap). Exact automation for “max attempts” is **implementation** in M1+; this ADR only fixes **graph edges** and terminality.
 
 ### Retries and timing
 
@@ -91,12 +91,10 @@ stateDiagram-v2
   dead_letter --> [*]
 ```
 
-
-
 ## Authority ordering (review discipline)
 
 - This ADR is **normative** for the command lifecycle **once Accepted**.
-- `[AgentCommandStatus](../../rust/crates/minilab-core/src/command.rs)` and `transition_allowed` **must** match this ADR; drift is a **merge blocker** when the ADR is Accepted (or explicitly cited as Proposed in a PR checklist).
+- [`AgentCommandStatus`](../../rust/crates/minilab-core/src/command.rs) and [`command_transition_allowed`](../../rust/crates/minilab-core/src/command.rs) **must** match this ADR; drift is a **merge blocker** when the ADR is Accepted (or explicitly cited as Proposed in a PR checklist).
 - Domain model prose ([§4 AgentCommand](../minilab-persistence-domain-model.md)) stays **descriptive**; on conflict after Acceptance, **update prose to match ADR**, not the reverse.
 - **M1 migrations** may enforce a subset (valid enum literals); **full** transition validation remains the job of `CommandRepository` (Rust) at minimum until triggers exist.
 
@@ -120,9 +118,6 @@ stateDiagram-v2
 
 ## Changelog
 
-
 | Date       | Change                                                          |
 | ---------- | --------------------------------------------------------------- |
 | 2026-04-19 | Proposed: states, transitions, lease, retries, authority order. |
-
-

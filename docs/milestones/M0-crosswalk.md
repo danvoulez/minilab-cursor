@@ -64,11 +64,13 @@ Naming: **DB** uses `snake_case` columns; **JSON/API** should match DB for coord
 
 ---
 
-## Pairing / auth (M0 = shapes only)
+## Pairing / auth (M0 = boundaries + stages; field names M1)
+
+**Normative:** [ADR 0006](../adr/0006-pairing-and-credential-ceremony.md).
 
 | Concept | Rust | TypeScript | DB | Doc anchor |
 | ------- | ---- | ---------- | -- | ---------- |
-| Pairing envelope | TBD | TBD | `pairing_sessions`, `pairing_events` | domain §4, §7; ADR TBD |
+| Ceremony trust boundary + stages | TBD (verifier / ports) | TBD (UX orchestration) | `pairing_sessions`, `minilab.pairing_events`, `agent_credentials`, `minilab.agent_credential_events` | [domain §4](../minilab-persistence-domain-model.md), ADR 0006, [pairing-envelope.md](../../contracts/pairing/pairing-envelope.md) |
 
 ---
 
@@ -78,3 +80,4 @@ Naming: **DB** uses `snake_case` columns; **JSON/API** should match DB for coord
 | ---- | ------ |
 | 2026-04-19 | Initial crosswalk; Rust column filled for `AgentCommandStatus` + stream constants. |
 | 2026-04-19 | Linked ADR 0004 (command), ADR 0005 + [M0-event-map.md](M0-event-map.md) (streams). |
+| 2026-04-19 | ADR 0006 (pairing / credentials) replaces “ADR TBD” in crosswalk. |

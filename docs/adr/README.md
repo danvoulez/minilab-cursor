@@ -9,6 +9,7 @@ Normative decisions that lock semantics for M0+ contract freeze. **Status `Propo
 | [0003](0003-manifest-signed-bytes-vs-envelope.md) | Signed manifest bytes vs envelope | Proposed |
 | [0004](0004-agent-command-state-machine.md) | `AgentCommand` lifecycle + lease + transitions | Proposed |
 | [0005](0005-typed-evidence-event-streams.md) | Typed evidence streams (five families) | Proposed |
+| [0006](0006-pairing-and-credential-ceremony.md) | Pairing + host-scoped credential ceremony | Proposed |
 
 ### Authority order (review discipline)
 

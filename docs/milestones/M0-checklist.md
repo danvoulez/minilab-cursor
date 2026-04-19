@@ -24,7 +24,7 @@ _Define shape, names, and links; remove ambiguity._
 - [ ] **[M0] AgentCommand: state machine** (states: pending, leased, running, completed, failed, cancelled, dead_letter — exhaustive enum; illegal transitions rejected).
 - [ ] **[M0] AgentCommand: name map** (state names and lease fields identical in Rust, TS, docs, M1 migration draft).
 - [ ] **[M0] Typed events: name map** — `InstallationEvent`, `AgentCommandEvent`, `AgentCommandLeaseEvent`, `PairingEvent`, `AgentCredentialEvent` (Rust + TS + docs; DB table names `minilab.*` aligned).
-- [ ] **[M0] Pairing / auth envelope** (session, challenge, credential reference shapes; trust boundary called out: Rust verifies, TS orchestrates UX).
+- [ ] **[M0] Pairing / auth** — [ADR 0006](adr/0006-pairing-and-credential-ceremony.md) Accepted (boundaries, stages, reclaim); field-level envelope + errors in M1 after freeze.
 - [ ] **[M0] verify_results: ADR or decision doc** (immutable attempt rows only vs separate authoritative summary; references [domain model §3B](../minilab-persistence-domain-model.md)).
 - [ ] **[M0] Reconciliation: ownership decision** (single `ReconciliationRepository` vs explicit split; update [ReconciliationRepository.port.md](../../design/ports/ReconciliationRepository.port.md) if needed).
 
@@ -68,3 +68,4 @@ _Cannot close M0 until all pass._
 | Date | Change |
 | ---- | ------ |
 | 2026-04-18 | Initial M0 GitHub-style checklist. |
+| 2026-04-19 | Pairing item points at ADR 0006; split M0 vs M1 envelope detail. |

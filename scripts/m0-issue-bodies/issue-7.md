@@ -9,7 +9,8 @@ Pairing is the **trust boundary** for host identity and credentials. Ambiguous e
 
 ## Acceptance criteria
 
-- [ ] ADR or `docs/` page: message shapes (field names, required/optional), error codes for failed pairing, reclaim flow references.
+- [ ] **M0:** [ADR 0006 — Pairing and credential ceremony](https://github.com/danvoulez/minilab-cursor/blob/main/docs/adr/0006-pairing-and-credential-ceremony.md) **Accepted** (trust boundary, stages, reclaim, persistence roles).
+- [ ] **M1+:** ADR or doc: message shapes (field names, required/optional), error codes for failed pairing — concrete envelope bytes.
 - [ ] [contracts/pairing/pairing-envelope.md](https://github.com/danvoulez/minilab-cursor/blob/main/contracts/pairing/pairing-envelope.md) links to canonical doc.
 - [ ] Maps to tables `pairing_sessions`, `pairing_events`, `agent_credentials`, `agent_credential_events` (planned names) in a short table.
 
